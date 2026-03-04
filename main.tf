@@ -20,6 +20,20 @@ data "aws_iam_role" "glue_role" {
   name = "practical-demo-role"
 }
 
+# -------------------------------
+# Upload local ETL script to S3
+# -------------------------------
+resource "aws_s3_bucket_object" "etl_script" {
+  bucket = data.aws_s3_bucket.scripts.bucket  
+  key    = "transaction_etl.py"
+  source = "C:/Users/Archa Kishore/cbs-dataops/glue/transaction_etl.py"
+  etag   = filemd5("C:/Users/Archa Kishore/cbs-dataops/glue/transaction_etl.py")
+  
+}
+
+# -------------------------------
+# Create Glue Job pointing to S3 script
+# -------------------------------
 resource "aws_glue_job" "etl_job" {
   name     = "transaction-etl-job"
   role_arn = data.aws_iam_role.glue_role.arn
