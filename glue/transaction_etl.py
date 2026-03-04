@@ -1,3 +1,4 @@
+print("CI/CD test run")
 import sys
 import logging
 from awsglue.transforms import *
