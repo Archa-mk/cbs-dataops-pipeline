@@ -26,10 +26,11 @@ data "aws_iam_role" "glue_role" {
 resource "aws_s3_bucket_object" "etl_script" {
   bucket = data.aws_s3_bucket.scripts.bucket  
   key    = "transaction_etl.py"
-  source = "C:/Users/Archa Kishore/cbs-dataops/glue/transaction_etl.py"
+  #source = "C:/Users/Archa Kishore/cbs-dataops/glue/transaction_etl.py"
   #etag   = filemd5("C:/Users/Archa Kishore/cbs-dataops/glue/transaction_etl.py")
-  #source = "glue/transaction_etl.py"
+  source = "glue/transaction_etl.py"
   etag   = filemd5("glue/transaction_etl.py")
+
   
 }
 
