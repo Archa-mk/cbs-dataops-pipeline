@@ -71,7 +71,7 @@ try:
     # ------------------------------------
     logger.info("Cleaning and transforming data for Silver layer...")
     df_silver = df_raw.dropna() \
-        .withColumn("transaction_date", to_timestamp(col("TransactionDate"), "M/d/yyyy"))) \
+        .withColumn("transaction_date", to_timestamp(col("TransactionDate"), "M/d/yyyy")) \
         .select(
             col("TransactionID").alias("transaction_id"),
             col("transaction_date"),
