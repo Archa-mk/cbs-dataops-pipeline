@@ -1,4 +1,4 @@
-print("CI/CD test run final")
+print("CI/CD test run final_test")
 import sys
 import logging
 from awsglue.transforms import *
