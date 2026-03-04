@@ -41,7 +41,6 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve
 
-    # Step 7: Optional - Trigger Glue Job
-    - name: Trigger Glue Job
-      run: |
-      	aws glue start-job-run --job-name transaction-etl-job || echo "Job already running, skipping."
+   # Step 7: Optional - Trigger Glue Job 
+   - name: Trigger Glue Job 
+     run: | aws glue start-job-run \ --job-name transaction-etl-job
