@@ -1,4 +1,3 @@
-print("CI/CD test run final_test")
 import sys
 import logging
 from awsglue.transforms import *
@@ -72,7 +71,7 @@ try:
     # ------------------------------------
     logger.info("Cleaning and transforming data for Silver layer...")
     df_silver = df_raw.dropna() \
-        .withColumn("transaction_date", to_timestamp(col("TransactionDate"))) \
+        .withColumn("transaction_date", to_timestamp(col("TransactionDate"), "M/d/yyyy"))) \
         .select(
             col("TransactionID").alias("transaction_id"),
             col("transaction_date"),
