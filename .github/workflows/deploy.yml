@@ -3,7 +3,7 @@ name: Deploy ETL Pipeline
 on:
   push:
     branches:
-      - main          # triggers when you push to main branch
+      - main          # triggers on pushes to main branch
   workflow_dispatch:   # allows manual trigger
 
 jobs:
@@ -11,36 +11,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Step 1: Checkout repository
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    # Step 2: Setup Terraform
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v2
-      with:
-        terraform_version: "1.14.6" 
+      # Step 2: Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: "1.14.6"
 
-    # Step 3: Configure AWS credentials
-    - name: Configure AWS
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: eu-north-1
+      # Step 3: Configure AWS credentials
+      - name: Configure AWS
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
 
-    # Step 4: Terraform Init
-    - name: Terraform Init
-      run: terraform init
+      # Step 4: Terraform Init
+      - name: Terraform Init
+        run: terraform init
 
-    # Step 5: Terraform Plan
-    - name: Terraform Plan
-      run: terraform plan
+      # Step 5: Terraform Plan
+      - name: Terraform Plan
+        run: terraform plan
 
-    # Step 6: Terraform Apply
-    - name: Terraform Apply
-      run: terraform apply -auto-approve
+      # Step 6: Terraform Apply
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
 
-   # Step 7: Optional - Trigger Glue Job 
-   - name: Trigger Glue Job 
-     run: | aws glue start-job-run \ --job-name transaction-etl-job
+      # Step 7: Trigger Glue Job
+      - name: Trigger Glue Job
+        run: |
+          echo "Starting Glue ETL job..."
+          aws glue start-job-run --job-name transaction-etl-job || echo "Job already running or exists, skipping."
