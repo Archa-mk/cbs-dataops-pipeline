@@ -19,7 +19,7 @@ def run_bronze_job():
     job = Job(glueContext)
     job.init(args['JOB_NAME'], args)
 
-    # ---- Logging Setup ----
+    # ---- Logging Setup -----
     timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
     log_file = f"/tmp/{args['JOB_NAME']}_{timestamp}.log"
 
