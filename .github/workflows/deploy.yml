@@ -49,19 +49,19 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve
 
-      # Step 7: Trigger Glue Job
-      - name: Trigger Glue Job
-        run: |
-          echo "Starting Glue ETL job..."
-          aws glue start-job-run --job-name transaction-etl-job || echo "Job already running or exists, skipping."
-          
-      - name: Trigger ETL Workflow
-        run: |
-          # Get the Step Function ARN from Terraform outputs
-          STATE_MACHINE_ARN=$(terraform output -json state_machine_arn | tr -d '"')
-          
-          # Start the Step Function execution
-          aws stepfunctions start-execution \
-            --state-machine-arn "$STATE_MACHINE_ARN" \
-            --name "etl-execution-$(date +%s)" \
-            --region eu-north-1
+#      # Step 7: Trigger Glue Job
+#      - name: Trigger Glue Job
+#        run: |
+#          echo "Starting Glue ETL job..."
+#          aws glue start-job-run --job-name transaction-etl-job || echo "Job already running or exists, skipping."
+#          
+#      - name: Trigger ETL Workflow
+#        run: |
+#          # Get the Step Function ARN from Terraform outputs
+#          STATE_MACHINE_ARN=$(terraform output -json state_machine_arn | tr -d '"')
+#          
+#          # Start the Step Function execution
+#          aws stepfunctions start-execution \
+#            --state-machine-arn "$STATE_MACHINE_ARN" \
+#            --name "etl-execution-$(date +%s)" \
+#            --region eu-north-1
