@@ -39,7 +39,6 @@ jobs:
       - name: Import Step Function Role
         run: |
           terraform import aws_iam_role.step_function_role etl-step-function-role || true
-          terraform import aws_iam_role_policy.step_function_policy etl-step-function-role:etl-step-function-policy || true
 
       # Step 5: Terraform Plan
       - name: Terraform Plan

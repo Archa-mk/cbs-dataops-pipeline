@@ -75,7 +75,7 @@ financial-dataops-pipeline
 │   └── gold_etl.py
 │
 ├── .github/workflows
-│   └── terraform_deploy.yml
+│   └── deploy.yml
 │
 └── README.md
 ```
@@ -98,17 +98,6 @@ Each job reads data from the previous layer and writes processed data to the nex
 
 ---
 
-## Scheduling
-
-The pipeline runs automatically using **EventBridge cron scheduling**.
-
-```
-cron(0 7 * * ? *)
-```
-
-This triggers the pipeline **every day at 07:00 AM (UTC)**.
-
----
 
 ## CI/CD Pipeline
 
